@@ -1,0 +1,32 @@
+1-create class AppUser
+2-Inherit class with IdentityUser
+3-Add class AppDbContext
+4-inherit class with IdentityDbContext like IdentityDbContext<AppUser>
+5-ctor press double tab create constructor like  public public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
+6-startup.cs register database services 
+  services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+  services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+     
+7-connection string add in appsetting.json
+"ConnectionStrings": {
+    "DefaultConnection": "Server=FARHAN;Database=DemoUserIdentity;Password=12345;Trusted_Connection=true;MultipleActiveResultSet=true"
+  },
+  
+8- Lets add Migration  
+   i-Add-Migration InitialDb
+   ii-Update-Database
+   
+9-lets now rename its tables go to AppDbContext overide function OnModelCreating add this line
+  i- builder.Entity<IdentityUser>().ToTable("User");
+  ii- Add-Migration IdentityUserRenamed
+  iii- Update-Database
+  
+10- i- Add-Migration IdentityTablesChanged  
+
+
+tutorial > https://www.youtube.com/watch?v=egITMrwMOPU&list=PL6n9fhu94yhVkdrusLaQsfERmL_Jh4XmU&index=65
+  
+
+  
+
+    
